@@ -5,6 +5,7 @@ INPUT:
 OUTPUT:
 	In_R, In_I[]: Real and Imag parts of Complex signal in frequency domain.
 
+	Old ^ i added the out_r and out_i
 */
 
 #include<stdio.h>
