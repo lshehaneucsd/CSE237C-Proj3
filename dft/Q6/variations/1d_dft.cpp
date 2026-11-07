@@ -30,8 +30,8 @@ dot_prod_loop:
 		for (j=0; j<SIZE; j++){
 			// #pragma HLS PIPELINE II=1
 			// Math.h trig
-			c = std::cos(j * w);
-			s = -std::sin(j * w);
+			// c = std::cos(j * w);
+			// s = -std::sin(j * w);
 
 			// 2D trig lookups
 			// c = cos_coeff_table[i][j];
