@@ -27,11 +27,14 @@ def extract_metrics(design_name, text):
     return [design_name, latency, s_ii, bram, dsp, lut, ff, tp]
 
 def extract_error(text):
-    idx = text.find("RMSE(I)")
-    if idx != -1:
-        nums = re.findall(r"[-+]?\d*\.\d+(?:[eE][-+]?\d+)?", text[idx:])
-        if len(nums) >= 2:
-            return nums[0], nums[1]
+    lines = text.splitlines()
+    num_re = r"[-+]?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][-+]?\d+)?"
+    for i, line in enumerate(lines):
+        if "RMSE(R)" in line and "RMSE(I)" in line:
+            for nxt in lines[i + 1:i + 4]:
+                nums = re.findall(num_re, nxt)
+                if len(nums) >= 2:
+                    return nums[0], nums[1]
     return "NA", "NA"
 
 def clean_question(q_dir):
@@ -80,7 +83,14 @@ def run_question(q_dir, target_var=None):
         rpt_out = subprocess.run(["make", "report"], cwd=q_dir, capture_output=True, text=True)
 
         hls_log = (hls_out.stdout or "") + (hls_out.stderr or "") + (rpt_out.stdout or "") + (rpt_out.stderr or "")
-        test_log = (test_out.stdout or "") + (test_out.stderr or "")
+        
+        tb_log = ""
+        for fname in sorted(os.listdir(q_dir)):
+            if fname.endswith("_test.log"):
+                with open(os.path.join(q_dir, fname), "r", errors="replace") as lf:
+                    tb_log += lf.read() + "\n"
+
+        test_log = (test_out.stdout or "") + (test_out.stderr or "") + "\n" + tb_log
 
         v_name = v if v != TOP_MODULE_NAME else q_dir
 
