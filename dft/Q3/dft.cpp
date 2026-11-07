@@ -12,14 +12,14 @@ const DTYPE TWO_PI_DIV_SIZE = TWO_PI / (DTYPE)SIZE;
 void dft(DTYPE real_sample[SIZE], DTYPE imag_sample[SIZE], DTYPE real_out[SIZE], DTYPE imag_out[SIZE])
 {
 	uint i, j; // loop iterators
-	DTYPE w; // omega
+	// DTYPE w; // omega
 	DTYPE c, s; // cos & sin
 	
 data_loop:
 	for (i=0; i<SIZE; i++){
 		real_out[i] = 0;
 		imag_out[i] = 0;
-		w = TWO_PI_DIV_SIZE * (DTYPE)i;
+		// w = TWO_PI_DIV_SIZE * (DTYPE)i;
 
 dot_prod_loop:
 		for (j=0; j<SIZE; j++){

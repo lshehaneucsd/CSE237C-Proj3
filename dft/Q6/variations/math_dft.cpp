@@ -45,7 +45,7 @@ dot_prod_loop:
 			real_out[i] += real_sample[j] * c - imag_sample[j] * s;
 			imag_out[i] += real_sample[j] * s - imag_sample[j] * c;
 		}
-		std::cout << i << ": " << real_out[i] << " + " << imag_out[i] << "i\n";
+		// std::cout << i << ": " << real_out[i] << " + " << imag_out[i] << "i\n";
 	}
 	
 	// Outputs to the real_out and imag_out
