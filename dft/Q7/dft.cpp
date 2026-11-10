@@ -30,7 +30,7 @@ dot_prod_loop:
 			s = sin_coefficients_table[t];
 
 			real_out[j] += real_sample[i] * c - imag_sample[i] * s;
-			imag_out[j] += real_sample[i] * s - imag_sample[i] * c;
+			imag_out[j] += real_sample[i] * s + imag_sample[i] * c;
 		}
 	}
 

@@ -39,7 +39,7 @@ dot_prod_loop:
 			// s = sin_coefficients_table[t];
 
 			temp_real[i] += real_sample[j] * c - imag_sample[j] * s;
-			temp_imag[i] += real_sample[j] * s - imag_sample[j] * c;
+			temp_imag[i] += real_sample[j] * s + imag_sample[j] * c;
 		}
 		std::cout << i << ": " << temp_real[i] << " + " << temp_imag[i] << "i\n";
 	}

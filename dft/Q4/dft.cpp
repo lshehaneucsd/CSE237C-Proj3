@@ -17,7 +17,7 @@ void dft(DTYPE real_sample[SIZE], DTYPE imag_sample[SIZE], DTYPE real_out[SIZE],
 	// #pragma HLS ARRAY_PARTITION variable=imag_out block factor=4 dim=1
 
 	uint i, j; // loop iterators
-	DTYPE w; // omega
+	// DTYPE w; // omega
 	DTYPE c, s; // cos & sin
 	
 data_loop:
@@ -25,7 +25,7 @@ data_loop:
 		#pragma HLS PIPELINE II=1
 		real_out[i] = 0;
 		imag_out[i] = 0;
-		w = TWO_PI_DIV_SIZE * (DTYPE)i;
+		// w = TWO_PI_DIV_SIZE * (DTYPE)i;
 
 dot_prod_loop:
 		for (j=0; j<SIZE; j++){
@@ -44,9 +44,9 @@ dot_prod_loop:
 			// s = sin_coefficients_table[t];
 
 			real_out[i] += real_sample[j] * c - imag_sample[j] * s;
-			imag_out[i] += real_sample[j] * s - imag_sample[j] * c;
+			imag_out[i] += real_sample[j] * s + imag_sample[j] * c;
 		}
-		std::cout << i << ": " << real_out[i] << " + " << imag_out[i] << "i\n";
+		// std::cout << i << ": " << real_out[i] << " + " << imag_out[i] << "i\n";
 	}
 	
 	// Outputs to the real_out and imag_out

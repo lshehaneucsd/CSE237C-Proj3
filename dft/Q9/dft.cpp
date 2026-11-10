@@ -45,7 +45,7 @@ dot_prod_loop:
 			imag_cache = imag_sample.read()
 
 			real_out[j] += real_cache * c - imag_cache * s;
-			imag_out[j] += real_cache * s - imag_cache * c;
+			imag_out[j] += real_cache * s + imag_cache * c;
 		}
 	}
 

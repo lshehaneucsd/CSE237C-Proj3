@@ -29,10 +29,10 @@ initialization_loop:
 
 data_loop:
 	for (i=0; i<SIZE; i++){
-		#pragma HLS PIPELINE II=UNROLL_FACTOR
+		#pragma HLS PIPELINE off
 dot_prod_loop:
 		for (j=0; j<SIZE; j++){
-			#pragma HLS PIPELINE II=UNROLL_FACTOR
+			#pragma HLS PIPELINE II=1
 			#pragma HLS UNROLL factor=UNROLL_FACTOR
 			// 1D trig lookup
 			uint t = (i * j) % SIZE;
@@ -40,7 +40,7 @@ dot_prod_loop:
 			s = sin_coefficients_table[t];
 
 			real_out[j] += real_sample[i] * c - imag_sample[i] * s;
-			imag_out[j] += real_sample[i] * s - imag_sample[i] * c;
+			imag_out[j] += real_sample[i] * s + imag_sample[i] * c;
 		}
 	}
 
