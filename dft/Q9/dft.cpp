@@ -12,6 +12,11 @@ void dft(
 	hls::stream<dpkt> &real_sample, hls::stream<dpkt> &imag_sample,
 	hls::stream<dpkt> &real_out, hls::stream<dpkt> &imag_out)
 {
+#pragma HLS INTERFACE mode=axis port=real_sample
+#pragma HLS INTERFACE mode=axis port=imag_sample
+#pragma HLS INTERFACE mode=axis port=real_out
+#pragma HLS INTERFACE mode=axis port=imag_out
+#pragma HLS INTERFACE mode=s_axilite port=return
 	DTYPE real_cache, imag_cache;
 	uint i, j; // loop iterators
 	DTYPE c, s; // cos & sin
@@ -36,7 +41,7 @@ data_loop:
         imag_cache = i_pkt.data;
 dot_prod_loop:
 		for (j=0; j<SIZE; j++){
-			#pragma HLS PIPELINE II=1
+			// #pragma HLS PIPELINE II=1
 			// #pragma HLS UNROLL factor=32
 			// since streaming in, we dont unroll
 
