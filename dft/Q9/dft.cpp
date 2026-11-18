@@ -34,13 +34,15 @@ initialization_loop:
 
 data_loop:
 	for (i=0; i<SIZE; i++){
-		#pragma HLS PIPELINE II=1
+		#pragma HLS PIPELINE off
 		dpkt r_pkt = real_sample.read();
         dpkt i_pkt = imag_sample.read();
         real_cache = r_pkt.data;
         imag_cache = i_pkt.data;
 dot_prod_loop:
 		for (j=0; j<SIZE; j++){
+			#pragma HLS PIPELINE II=1
+            #pragma HLS UNROLL factor=16
 			// #pragma HLS PIPELINE II=1
 			// #pragma HLS UNROLL factor=32
 			// since streaming in, we dont unroll
